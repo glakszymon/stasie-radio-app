@@ -1,0 +1,44 @@
+{
+  "name": "stasie-radio",
+  "productName": "stasie-radio",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": ".vite/build/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.3.0",
+    "@electron-forge/maker-deb": "^7.3.0",
+    "@electron-forge/maker-rpm": "^7.3.0",
+    "@electron-forge/maker-squirrel": "^7.3.0",
+    "@electron-forge/maker-zip": "^7.3.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.3.0",
+    "@electron-forge/plugin-fuses": "^7.2.0",
+    "@electron-forge/plugin-vite": "^7.3.0",
+    "@electron/fuses": "^1.7.0",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "electron": "29.1.1",
+    "vite": "^5.0.12"
+  },
+  "keywords": [],
+  "author": {
+    "name": "glakartur",
+    "email": "glakartur@int.pl"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@coreui/coreui": "^4.3.2",
+    "@coreui/icons": "^3.0.1",
+    "@coreui/icons-vue": "^2.0.0",
+    "@coreui/vue": "^4.10.2",
+    "axios": "^1.6.3",
+    "electron-squirrel-startup": "^1.0.0",
+    "vue": "^3.4.21",
+    "yarn": "^1.22.22"
+  }
+}
