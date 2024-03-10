@@ -5,6 +5,7 @@
                 <td>Zdjęcie</td>
                 <td>Prowadzący</td>
                 <td>Opis</td>
+                <td>longOpis</td>
                 <td>Edit</td>
                 <td>Delete</td>
             </tr>
@@ -13,6 +14,7 @@
                 <td><img :src="getPhotoPeople(row.id)" class="imagePeople"/></td>
                 <td>{{ row.creator }}</td>
                 <td>{{ row.opis }}</td>
+                <td>{{ row.longOpis }}</td>
                 <td><button @click="edit_person(row)">Edit</button></td>
                 <td><button @click="deleteElement(row.id)">Delete</button></td>
             </tr>
@@ -24,11 +26,11 @@
             <label for="name">Prowadzący</label>
             <textarea class="text-input" id="name" name="name" placeholder="Imie i nazwisko.." v-model="edit_name"></textarea>
             <br/>
-            <label for="opis">Zadanie</label>
+            <label for="opis">Opis na głównej</label>
             <textarea class="text-input" id="opis" name="opis" placeholder="np. Redaktor" v-model="edit_opis"></textarea>
             <br/>
-            <!-- <label for="image"> Zdjęcie</label>
-            <input type="file" name="image" /> -->
+            <label for="LongOpis">Długi opis</label>
+            <textarea class="text-input" id="LongOpis" name="LongOpis" placeholder="Długi opis" v-model="edit_longOpis"></textarea>
             <br/>
             <!-- <input type="submit" name="submit">  -->
             <div class="buttons_change">
@@ -47,12 +49,14 @@
     const edit_id = ref();
     const edit_name = ref();
     const edit_opis = ref();
+    const edit_longOpis = ref();
 
     function edit_person(person) {
         edit_mode.value = true;
         edit_id.value = person.id;
         edit_name.value = person.creator;
         edit_opis.value = person.opis;
+        edit_longOpis.value = person.longOpis;
     }
 
     function cancel_edit(){
@@ -64,7 +68,8 @@
         axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/edit_People.php', {
             id: edit_id.value,
             creator: edit_name.value,
-            opis: edit_opis.value
+            opis: edit_opis.value,
+            longOpis: edit_longOpis.value
         })
         .then(response => {
             edit_mode.value = false;

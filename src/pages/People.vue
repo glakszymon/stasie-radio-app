@@ -3,8 +3,11 @@
         <label for="name">Prowadzący</label>
         <textarea class="text-input" id="name" name="name" placeholder="Imie i nazwisko.."></textarea>
         <br/>
-        <label for="opis">Zadanie</label>
+        <label for="opis">Opis na głównej</label>
         <textarea class="text-input" id="opis" name="opis" placeholder="np. Redaktor"></textarea>
+        <br/>
+        <label for="LongOpis">Długi opis</label>
+        <textarea class="text-input" id="LongOpis" name="LongOpis" placeholder="Długi opis"></textarea>
         <br/>
         <input type="file" name="facePhoto" id="facePhoto">
         <br/>
