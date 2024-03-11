@@ -8,6 +8,8 @@ import Form from './pages/Form.vue';
 import ShowPeople from './pages/ShowPeople.vue';
 import AddInfo from './pages/AddWiadomosci.vue';
 import ShowInfo from './pages/ShowInfo.vue';
+import AddAudio from './pages/AddAudio.vue';
+import ShowAudio from './pages/ShowAudio.vue';
 
 
 
@@ -26,8 +28,8 @@ const router = createRouter( {
     {path: '/people', name: 'People', component: People},
     {path: '/addInfo', name: 'AddInfo', component: AddInfo},
     {path: '/ShowInfo', name: 'ShowInfo', component: ShowInfo},
-
-
+    {path: '/AddAudio', name: 'AddAudio', component: AddAudio},
+    {path: '/ShowAudio', name: 'ShowAudio', component: ShowAudio},
    ] 
  });
 

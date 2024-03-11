@@ -50,6 +50,16 @@
                 <img src="../assets/img/add-post.png" class="picture_of_navigation">
                 <router-link class="siteLink" to="/AddInfo"><p class="textSite">Dodawanie Posta</p></router-link>
             </li>
+            <!-- ---------Nagrania--------- -->
+            <li class="mini_title_functions"><b>Nagrania</b></li>
+            <li class="option_of_navigation">
+                <img src="../assets/img/Nagrania.png" class="picture_of_navigation">
+                <router-link class="siteLink" to="/ShowAudio"><p class="textSite">Wstawione Nagrania</p></router-link>
+            </li>
+            <li class="option_of_navigation">
+                <img src="../assets/img/addHistory.png" class="picture_of_navigation">
+                <router-link class="siteLink" to="/AddAudio"><p class="textSite">Dodawanie Nagrań</p></router-link>
+            </li>
         </div>
         <div class="title">
         </div>
