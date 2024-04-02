@@ -2,47 +2,42 @@
     <div v-if="!edit_mode">
         <table>
             <tr class="stopka">
-                <td>Nagranie</td>
-                <td>Tytuł</td>
-                <td>Opis</td>
+          
+                <td>id</td>
+                <td>Nazwa</td>
                 <td>Edit</td>
                 <td>Delete</td>
             </tr>
             <tr v-for="row in listItems">
-                <!-- <td><img :src="getPhotoPeople(row.id)" class="imagePeople"/></td> -->
-                <td>
-                    <audio controls>
-                        <source v-bind:src="getAudio(row.id)">
-                    </audio>
-                </td>
-                <td>{{ row.title }}</td>
-                <td>{{ row.opis }}</td>
-                <td><button @click="edit_audio(row)">Edit</button></td>
+                <!-- <td>{{ row.id }}</td> -->
+
+                <td>{{ row.id }}</td>
+                <td>{{ row.nazwaKategorii }}</td>
+
+                <td><button @click="edit_person(row)">Edit</button></td>
                 <td><button @click="deleteElement(row.id)">Delete</button></td>
             </tr>
         </table>
     </div>
 
-    <div v-if="edit_mode">
-        <form ref="form" onsubmit="return false" id="myForm3">
-            <!-- <audio controls> -->
-                <!-- <source v-bind:src="getAudio(row.id)"> -->
-            <!-- </audio> -->
-
-            <label for="Title">Tytuł</label>
-                <textarea class="text-input" id="Title" name="Title" placeholder="np. Wywiad z prezydentem" v-model="edit_title"></textarea>
+    <!-- <div v-if="edit_mode">
+        <form ref="form">
+            <label for="name">Prowadzący</label>
+            <textarea class="text-input" id="name" name="name" placeholder="Imie i nazwisko.." v-model="edit_name"></textarea>
             <br/>
-            <label for="opis">Opis</label>
-                <textarea class="text-input" id="opis" name="opis" placeholder="np. Wywiad z Prezydentem z dnia 22.05.2024" v-model="edit_opis"></textarea>
+            <label for="opis">Opis na głównej</label>
+            <textarea class="text-input" id="opis" name="opis" placeholder="np. Redaktor" v-model="edit_opis"></textarea>
             <br/>
-                <!-- <input type="file" name="audioHistory" id="audioHistory">
-            <br/> -->
-            <div style="display: flex; justify-content: space-between;">
-                <button class="submitButton" @click="submit_edit">Submit</button>
-                <button class="cancelButton" @click="cancel_edit">Anuluj</button>
-            </div>
+            <label for="LongOpis">Długi opis</label>
+            <textarea class="text-input" id="LongOpis" name="LongOpis" placeholder="Długi opis" v-model="edit_longOpis"></textarea>
+            <br/>
+        
+            <div class="buttons_change">
+                <button class="submitButton_edit" @click="submit_edit()" type="button">Submit</button>
+                <button class="cancelButton" @click="cancel_edit()" type="button">Anuluj</button>
+            </div>  
         </form>
-    </div>
+    </div> -->
 </template>
 
 <script setup>
@@ -51,14 +46,16 @@
     const listItems = ref([]);
     const edit_mode = ref(false);
     const edit_id = ref();
-    const edit_title = ref();
+    const edit_name = ref();
     const edit_opis = ref();
+    const edit_longOpis = ref();
 
-    function edit_audio(audio) {
+    function edit_person(person) {
         edit_mode.value = true;
-        edit_id.value = audio.id;
-        edit_title.value = audio.title;
-        edit_opis.value = audio.opis;
+        edit_id.value = person.id;
+        edit_name.value = person.creator;
+        edit_opis.value = person.opis;
+        edit_longOpis.value = person.longOpis;
     }
 
     function cancel_edit(){
@@ -67,10 +64,11 @@
 
     function submit_edit()
     {
-        axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/edit_Audio.php', {
+        axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/edit_People.php', {
             id: edit_id.value,
-            title: edit_title.value,
+            creator: edit_name.value,
             opis: edit_opis.value,
+            longOpis: edit_longOpis.value
         })
         .then(response => {
             edit_mode.value = false;
@@ -81,19 +79,13 @@
 
         });
     }
-    
-    function getAudio(id)
-    {
-        return 'https://stasieradio.pl/cgi-bin/phpAplikacja/audio/audio_'+id+'.mp3';
-    }
-
-    
+   
 
     function fetchShowData() {
                 // console.log("fetchShowData...");
-                axios.get('https://stasieradio.pl/cgi-bin/phpAplikacja/audio_import.php')
+                axios.get('https://stasieradio.pl/cgi-bin/phpAplikacja/importCategory.php')
                 .then(response => {
-                    // console.log(response.data);
+                    console.log(response.data);
                     listItems.value = response.data;
                 })
                 .catch(error => {
@@ -105,7 +97,7 @@
             }
 
     function deleteElement(id) {
-                axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/delete_audio.php', {
+                axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/delete_people.php', {
                     id: id  
                 })
                 .then(response => {

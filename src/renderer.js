@@ -10,7 +10,8 @@ import AddInfo from './pages/AddWiadomosci.vue';
 import ShowInfo from './pages/ShowInfo.vue';
 import AddAudio from './pages/AddAudio.vue';
 import ShowAudio from './pages/ShowAudio.vue';
-
+import addCategory from './pages/addCategory.vue';
+import ShowCategory from './pages/ShowCategory.vue';
 
 
 // const routes = [
@@ -30,6 +31,8 @@ const router = createRouter( {
     {path: '/ShowInfo', name: 'ShowInfo', component: ShowInfo},
     {path: '/AddAudio', name: 'AddAudio', component: AddAudio},
     {path: '/ShowAudio', name: 'ShowAudio', component: ShowAudio},
+    {path: '/addCategory', name: 'addCategory', component: addCategory},
+    {path: '/ShowCategory', name: 'ShowCategory', component: ShowCategory},
    ] 
  });
 

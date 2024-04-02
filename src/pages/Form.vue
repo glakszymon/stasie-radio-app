@@ -32,7 +32,7 @@
     <br/>
 
     <div class="time_style">
-        <label for="timeStart">Czas start</label>
+        <label for="timeStart">Czas rozpoczęcia audycji według rozpiski</label>
         <input type="time" class="time_input_style" id="timeStart" name="timeStart">
     </div>
 

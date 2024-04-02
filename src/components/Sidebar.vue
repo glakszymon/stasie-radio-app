@@ -60,6 +60,16 @@
                 <img src="../assets/img/addHistory.png" class="picture_of_navigation">
                 <router-link class="siteLink" to="/AddAudio"><p class="textSite">Dodawanie Nagrań</p></router-link>
             </li>
+            <!-- ---------Kategorie--------- -->
+            <li class="mini_title_functions"><b>Kategorie Nagrań</b></li>
+            <li class="option_of_navigation">
+                <img src="../assets/img/Nagrania.png" class="picture_of_navigation">
+                <router-link class="siteLink" to="/ShowCategory"><p class="textSite">Kategorie</p></router-link>
+            </li>
+            <li class="option_of_navigation">
+                <img src="../assets/img/addHistory.png" class="picture_of_navigation">
+                <router-link class="siteLink" to="/addCategory"><p class="textSite">Dodawanie Kategorii</p></router-link>
+            </li>
         </div>
         <div class="title">
         </div>

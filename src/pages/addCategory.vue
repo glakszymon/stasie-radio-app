@@ -1,22 +1,7 @@
 <template>
-    <form ref="form" onsubmit="return false" id="myForm3">
-        <label for="Title">Tytuł</label>
-        <textarea class="text-input" id="Title" name="Title" placeholder="np. Wywiad z prezydentem"></textarea>
-        <br/>
-        <label for="opis">Opis</label>
-        <textarea class="text-input" id="opis" name="opis" placeholder="np. Wywiad z Prezydentem z dnia 22.05.2024"></textarea>
-        <br/>
-
-        <div class="Prowadzacy_style">
-          <label for="kategoria">Kategoria</label>
-          <select class="dropDownMenu" id="kategoria" name="kategoria">
-              <option v-for="row in listItems" v-bind:value = "row.id">{{ row.nazwaKategorii }}</option>
-          </select>
-        </div>
-        <br/>
-
-        <input type="file" name="audioHistory" id="audioHistory">
-        <br/>
+    <form ref="form" onsubmit="return false" id="myForm9">
+        <label for="name">Nazwa Kategorii</label>
+        <textarea class="text-input" id="name" name="name" placeholder="Nazwa"></textarea>
         <button class="submitButton" @click="submitForm">Submit</button>
     </form>
 </template>
@@ -30,9 +15,9 @@ export default {
     submitForm() {
       const formData = new FormData(this.$refs.form);
 
-      axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/addAudio.php', formData)
+      axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/addCategory.php', formData)
         .then(response => {
-          document.getElementById("myForm3").reset();
+          document.getElementById("myForm9").reset();
           // this.successMessage = 'Dodane';
           this.formSubmitted = true;
         })
@@ -43,20 +28,6 @@ export default {
     }
   }
 }
-</script>
-
-<script setup>
-  import { ref } from 'vue';
-  import axios from 'axios';
-
-  const listItems = ref([]);
-
-  async function getData() {
-    const response = await axios.get('https://stasieradio.pl/cgi-bin/phpAplikacja/importCategory.php');
-    listItems.value = response.data;
-  }
-
-  getData();  
 </script>
 
 

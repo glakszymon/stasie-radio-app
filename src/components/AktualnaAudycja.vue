@@ -59,14 +59,14 @@
 </script>
 
 <template>
-    <footer class="actual_program_show" v-for="akt in aktulanaOpcja">
+    <!-- <footer class="actual_program_show" v-for="akt in aktulanaOpcja">
             <h3>Aktualnie grana audycja</h3>
             <div class="dane_aktualne">
                 <p>Tytuł: {{ akt.title }}</p>
                 <p>Autor: {{ akt.creator }}</p>
                 <button @click="stop_program()">Ustaw domyślne</button>
             </div>
-    </footer>
+    </footer> -->
 </template>
 
 <style>
