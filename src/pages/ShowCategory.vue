@@ -20,24 +20,17 @@
         </table>
     </div>
 
-    <!-- <div v-if="edit_mode">
+    <div v-if="edit_mode">
         <form ref="form">
-            <label for="name">Prowadzący</label>
-            <textarea class="text-input" id="name" name="name" placeholder="Imie i nazwisko.." v-model="edit_name"></textarea>
-            <br/>
-            <label for="opis">Opis na głównej</label>
-            <textarea class="text-input" id="opis" name="opis" placeholder="np. Redaktor" v-model="edit_opis"></textarea>
-            <br/>
-            <label for="LongOpis">Długi opis</label>
-            <textarea class="text-input" id="LongOpis" name="LongOpis" placeholder="Długi opis" v-model="edit_longOpis"></textarea>
-            <br/>
+            <label for="name">Nazwa Kategorii</label>
+            <textarea class="text-input" id="name" name="name" placeholder="Nazwa" v-model="edit_name"></textarea>
         
             <div class="buttons_change">
                 <button class="submitButton_edit" @click="submit_edit()" type="button">Submit</button>
                 <button class="cancelButton" @click="cancel_edit()" type="button">Anuluj</button>
             </div>  
         </form>
-    </div> -->
+    </div>
 </template>
 
 <script setup>
@@ -47,15 +40,12 @@
     const edit_mode = ref(false);
     const edit_id = ref();
     const edit_name = ref();
-    const edit_opis = ref();
-    const edit_longOpis = ref();
+
 
     function edit_person(person) {
         edit_mode.value = true;
         edit_id.value = person.id;
-        edit_name.value = person.creator;
-        edit_opis.value = person.opis;
-        edit_longOpis.value = person.longOpis;
+        edit_name.value = person.nazwaKategorii;
     }
 
     function cancel_edit(){
@@ -64,11 +54,9 @@
 
     function submit_edit()
     {
-        axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/edit_People.php', {
+        axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/edit_Category.php', {
             id: edit_id.value,
             creator: edit_name.value,
-            opis: edit_opis.value,
-            longOpis: edit_longOpis.value
         })
         .then(response => {
             edit_mode.value = false;
@@ -82,22 +70,18 @@
    
 
     function fetchShowData() {
-                // console.log("fetchShowData...");
                 axios.get('https://stasieradio.pl/cgi-bin/phpAplikacja/importCategory.php')
                 .then(response => {
                     console.log(response.data);
                     listItems.value = response.data;
                 })
                 .catch(error => {
-                    // Handle error
-
+  
                 });
-                // const response = await axios.get('http://localhost/people_import.php');
-                // this.listItems.value = response.data;
             }
 
     function deleteElement(id) {
-                axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/delete_people.php', {
+                axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/delete_category.php', {
                     id: id  
                 })
                 .then(response => {
