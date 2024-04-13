@@ -6,6 +6,13 @@
         <label for="opis">Opis</label>
         <textarea class="text-input" id="opis" name="opis" placeholder="np. Wywiad z Prezydentem z dnia 22.05.2024"></textarea>
         <br/>
+        <div class="Prowadzacy_style">
+          <label for="Autor">Autor</label>
+          <select class="dropDownMenu" id="Autor" name="Autor">
+              <option v-for="one in people" v-bind:value = "one.creator">{{ one.creator }}</option>
+          </select>
+        </div>
+        <br/>
 
         <div class="Prowadzacy_style">
           <label for="kategoria">Kategoria</label>
@@ -14,27 +21,39 @@
           </select>
         </div>
         <br/>
-
+        <label for="playDate">Data publikacji:</label>
+        <input type="date" id="playDate" name="playDate">
+        <br/>
         <input type="file" name="audioHistory" id="audioHistory">
         <br/>
         <button class="submitButton" @click="submitForm">Submit</button>
     </form>
+    <div>{{ odp }}</div>
 </template>
 
 <script>
 import axios from 'axios';
 
+
 export default {
+  data() {
+    return{
+      odp: "",
+    }
+  },
 
   methods: {
     submitForm() {
+      this.odp = "dodawanie...";
       const formData = new FormData(this.$refs.form);
 
       axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/addAudio.php', formData)
         .then(response => {
+          console.log(response.data);
           document.getElementById("myForm3").reset();
+          this.odp = response.data;
           // this.successMessage = 'Dodane';
-          this.formSubmitted = true;
+          //this.formSubmitted = true;
         })
         .catch(error => {
           console.error('Error:', error);
@@ -50,10 +69,13 @@ export default {
   import axios from 'axios';
 
   const listItems = ref([]);
+  const people = ref([]);
 
   async function getData() {
     const response = await axios.get('https://stasieradio.pl/cgi-bin/phpAplikacja/importCategory.php');
     listItems.value = response.data;
+    const people_data = await axios.get('https://stasieradio.pl/cgi-bin/phpAplikacja/people_import.php');
+    people.value = people_data.data;
   }
 
   getData();  

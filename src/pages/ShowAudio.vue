@@ -4,11 +4,13 @@
             <tr class="stopka">
                 <td>Nagranie</td>
                 <td>Tytuł</td>
+                <td>autor</td>
                 <td>Opis</td>
+                <td>kategoria</td>
                 <td>Edit</td>
                 <td>Delete</td>
             </tr>
-            <tr v-for="row in listItems">
+            <tr v-for="row in response">
                 <!-- <td><img :src="getPhotoPeople(row.id)" class="imagePeople"/></td> -->
                 <td>
                     <audio controls>
@@ -16,7 +18,10 @@
                     </audio>
                 </td>
                 <td>{{ row.title }}</td>
+                <td>{{ row.autor }}</td>
                 <td>{{ row.opis }}</td>
+                <!-- <td>{{ row.idKategori }}</td> -->
+                <td>{{ row.nazwaKategorii }}</td>
                 <td><button @click="edit_audio(row)">Edit</button></td>
                 <td><button @click="deleteElement(row.id)">Delete</button></td>
             </tr>
@@ -54,6 +59,8 @@
     const edit_title = ref();
     const edit_opis = ref();
 
+    const response = ref([]);
+
     function edit_audio(audio) {
         edit_mode.value = true;
         edit_id.value = audio.id;
@@ -84,26 +91,19 @@
     
     function getAudio(id)
     {
+        console.log(id);
         return 'https://stasieradio.pl/cgi-bin/phpAplikacja/audio/audio_'+id+'.mp3';
     }
 
-    
-
-    function fetchShowData() {
-                // console.log("fetchShowData...");
-                axios.get('https://stasieradio.pl/cgi-bin/phpAplikacja/audio_import.php')
-                .then(response => {
-                    // console.log(response.data);
-                    listItems.value = response.data;
-                })
-                .catch(error => {
-                    // Handle error
-
-                });
-                // const response = await axios.get('http://localhost/people_import.php');
-                // this.listItems.value = response.data;
-            }
-
+    async function fetchShowData()
+    {
+        const res = await fetch('https://stasieradio.pl/cgi-bin/phpAplikacja/audio_import.php?idKat=idKategori', {
+            method: 'GET',
+        });
+            response.value = await res.json();
+        return;
+    }
+        
     function deleteElement(id) {
                 axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/delete_audio.php', {
                     id: id  
@@ -116,6 +116,8 @@
 
                 });
     }
+
+    // getCategory();
 
     fetchShowData();
 </script>
