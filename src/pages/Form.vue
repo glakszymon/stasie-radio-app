@@ -8,7 +8,7 @@
     <br/>
 
     <div class="Prowadzacy_style">
-        <label for="creator">LLLLProwadzący</label>
+        <label for="creator">Prowadzący</label>
         <select class="dropDownMenu" id="creator" name="creator">
             <option v-for="row in listItems" v-bind:value = "row.creator">{{ row.creator }}</option>
         </select>
@@ -31,20 +31,32 @@
 
     <br/>
 
-    <div class="time_style">
+    <!-- <div class="time_style">
         <label for="timeStart">Czas rozpoczęcia audycji według rozpiski</label>
         <input type="time" class="time_input_style" id="timeStart" name="timeStart">
-    </div>
-
-    <br/>
+    </div> -->
 
     <div class="time_style">
-        <label for="timeEnd">Czas stop</label>
-        <input type="time" class="time_input_style" id="timeEnd" name="timeEnd">
+        <label for="time1">Czas 1</label>
+        <input type="time" class="time_input_style" id="time1" name="time1">
     </div>
 
-    <br/>
-    
+    <div class="time_style">
+        <label for="time2">Czas 2</label>
+        <input type="time" class="time_input_style" id="time2" name="time2">
+    </div>
+
+    <div class="time_style">
+        <label for="time3">Czas 3</label>
+        <input type="time" class="time_input_style" id="time3" name="time3">
+    </div>
+
+    <div class="time_style">
+        <label for="time4">Czas 4</label>
+        <input type="time" class="time_input_style" id="time4" name="time4">
+    </div>
+
+
     <div class="opis_group">
         <label for="opis">Opis programu</label>
         <textarea class="opis_style" id="opis" name="opis"></textarea>

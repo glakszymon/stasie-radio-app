@@ -2,17 +2,17 @@
     <form ref="form" onsubmit="return false" id="myForm3">
         <label for="Title">Tytuł</label>
         <textarea class="text-input" id="Title" name="Title" placeholder="np. Wywiad z prezydentem"></textarea>
-        <br/>
+        <!-- <br/> -->
         <label for="opis">Opis</label>
         <textarea class="text-input" id="opis" name="opis" placeholder="np. Wywiad z Prezydentem z dnia 22.05.2024"></textarea>
-        <br/>
+        <!-- <br/> -->
         <div class="Prowadzacy_style">
           <label for="Autor">Autor</label>
           <select class="dropDownMenu" id="Autor" name="Autor">
               <option v-for="one in people" v-bind:value = "one.creator">{{ one.creator }}</option>
           </select>
         </div>
-        <br/>
+        <!-- <br/> -->
 
         <div class="Prowadzacy_style">
           <label for="kategoria">Kategoria</label>
@@ -20,12 +20,12 @@
               <option v-for="row in listItems" v-bind:value = "row.id">{{ row.nazwaKategorii }}</option>
           </select>
         </div>
-        <br/>
+        <!-- <br/> -->
         <label for="playDate">Data publikacji:</label>
-        <input type="date" id="playDate" name="playDate">
-        <br/>
-        <input type="file" name="audioHistory" id="audioHistory">
-        <br/>
+        <input type="date" class="dataInput" id="playDate" name="playDate" >
+        <!-- <br/> -->
+        <input type="file" class="fileInput" name="audioHistory" id="audioHistory">
+        <!-- <br/> -->
         <button class="submitButton" @click="submitForm">Submit</button>
     </form>
     <div>{{ odp }}</div>
@@ -113,5 +113,17 @@ export default {
 
     .submitButton:hover{
       background-color: #388a3b;
+    }
+
+    .dataInput{
+      width: 100%;
+      margin: 8px 0px;
+      padding: 9px;
+      border-radius: 7px;
+    }
+
+    .fileInput{
+      margin: 8px 0;
+      width: 100%;
     }
 </style>
