@@ -92,7 +92,7 @@
     function getAudio(id)
     {
         console.log(id);
-        return 'https://stasieradio.pl/cgi-bin/phpAplikacja/audio/audio_'+id+'.mp3';
+        return 'https://stasieradio.pl/cgi-bin/phpAplikacja/audio/audio_'+id+'.wav';
     }
 
     async function fetchShowData()
