@@ -36,7 +36,7 @@
 
     function mounted(){
         setInterval(() => {
-            fetchAktualnaData();  
+            // fetchAktualnaData();  
         }, 10000);
     }
 
@@ -53,7 +53,7 @@
                 });
     }
     
-    fetchAktualnaData();
+    // fetchAktualnaData();
     mounted();
 
 </script>

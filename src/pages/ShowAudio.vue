@@ -13,6 +13,12 @@
             <tr v-for="row in response">
                 <!-- <td><img :src="getPhotoPeople(row.id)" class="imagePeople"/></td> -->
                 <td>
+                    <!-- <iframe
+                        frameborder="0"
+                        width="350"
+                        height="60"
+                        v-bind:src = row.link>
+                    </iframe> -->
                     <audio controls>
                         <source v-bind:src="getAudio(row.id)">
                     </audio>

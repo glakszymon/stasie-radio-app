@@ -37,8 +37,11 @@
     "@coreui/icons-vue": "^2.0.0",
     "@coreui/vue": "^4.10.2",
     "axios": "^1.6.3",
+    "build": "^0.1.4",
     "electron-squirrel-startup": "^1.0.0",
+    "rpmbuild": "^0.0.23",
     "vue": "^3.4.21",
+    "vue-router": "^4.4.4",
     "yarn": "^1.22.22"
   }
 }

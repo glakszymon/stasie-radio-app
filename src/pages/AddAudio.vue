@@ -1,18 +1,18 @@
-<template>
+<!-- <template>
     <form ref="form" onsubmit="return false" id="myForm3">
         <label for="Title">Tytuł</label>
         <textarea class="text-input" id="Title" name="Title" placeholder="np. Wywiad z prezydentem"></textarea>
-        <!-- <br/> -->
+        
         <label for="opis">Opis</label>
         <textarea class="text-input" id="opis" name="opis" placeholder="np. Wywiad z Prezydentem z dnia 22.05.2024"></textarea>
-        <!-- <br/> -->
+        
         <div class="Prowadzacy_style">
           <label for="Autor">Autor</label>
           <select class="dropDownMenu" id="Autor" name="Autor">
               <option v-for="one in people" v-bind:value = "one.creator">{{ one.creator }}</option>
           </select>
         </div>
-        <!-- <br/> -->
+        
 
         <div class="Prowadzacy_style">
           <label for="kategoria">Kategoria</label>
@@ -20,12 +20,52 @@
               <option v-for="row in listItems" v-bind:value = "row.id">{{ row.nazwaKategorii }}</option>
           </select>
         </div>
-        <!-- <br/> -->
+        
         <label for="playDate">Data publikacji:</label>
         <input type="date" class="dataInput" id="playDate" name="playDate" >
+         <br/> -->
+        <!-- <input type="file" class="fileInput" name="audioHistory" id="audioHistory"> -->
+        <!-- <label for="playDate">Link do google drive po edycji:</label>
+        <textarea class="text-input" id="link" name="link" ></textarea> -->
         <!-- <br/> -->
-        <input type="file" class="fileInput" name="audioHistory" id="audioHistory">
-        <!-- <br/> -->
+        <!-- <button class="submitButton" @click="submitForm">Submit</button> -->
+    <!-- </form> -->
+    <!-- <div>{{ odp }}</div> -->
+<!-- </template> -->
+<template>
+    <form ref="form" onsubmit="return false" id="myForm3">
+        <label for="Title">Tytuł</label>
+        <textarea class="text-input" id="Title" name="Title" placeholder="np. Wywiad z prezydentem"></textarea>
+        <label for="opis">Opis</label>
+        <textarea class="text-input" id="opis" name="opis" placeholder="np. Wywiad z Prezydentem z dnia 22.05.2024"></textarea>
+        <div class="Prowadzacy_style">
+          <label for="Autor">Autor</label>
+          <select class="dropDownMenu" id="Autor" name="Autor">
+              <option v-for="one in people" v-bind:value="one.creator">{{ one.creator }}</option>
+          </select>
+        </div>
+        <div class="Prowadzacy_style">
+          <label for="kategoria">Kategoria</label>
+          <select class="dropDownMenu" id="kategoria" name="kategoria">
+              <option v-for="row in listItems" v-bind:value="row.id">{{ row.nazwaKategorii }}</option>
+          </select>
+        </div>
+         <label for="playDate">Data publikacji:</label>
+        <input type="date" class="dataInput" id="playDate" name="playDate">
+        <!-- <label for="audioHistory">Plik ZIP z nagraniem:</label>
+        <input type="file" class="fileInput" name="audioHistory" id="audioHistory" accept=".7z"> -->
+
+
+        <div class="Prowadzacy_style">
+          <label for="availableAudio">Dostępne pliki audio:</label>
+          <select class="dropDownMenu" id="availableAudio" name="availableAudio">
+            <option v-for="audio in availableAudioFiles" :key="audio" :value="audio">
+              {{ audio }}
+            </option>
+          </select>
+        </div>
+
+
         <button class="submitButton" @click="submitForm">Submit</button>
     </form>
     <div>{{ odp }}</div>
@@ -39,7 +79,12 @@ export default {
   data() {
     return{
       odp: "",
+      availableAudioFiles: [],
     }
+  },
+
+  mounted() {
+    this.getAvailableAudioFiles();
   },
 
   methods: {
@@ -47,7 +92,7 @@ export default {
       this.odp = "dodawanie...";
       const formData = new FormData(this.$refs.form);
 
-      axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/addAudio.php', formData)
+      axios.post('https://stasieradio.pl/cgi-bin/phpAplikacja/addAudioftp.php', formData)
         .then(response => {
           console.log(response.data);
           document.getElementById("myForm3").reset();
@@ -59,6 +104,15 @@ export default {
           console.error('Error:', error);
           this.error = error;  
         });
+    },
+
+    async getAvailableAudioFiles() {
+      try {
+        const response = await axios.get('https://stasieradio.pl/cgi-bin/phpAplikacja/listftp_files.php');
+        this.availableAudioFiles = response.data;
+      } catch (error) {
+        console.error('Error fetching available audio files:', error);
+      }
     }
   }
 }
@@ -67,6 +121,9 @@ export default {
 <script setup>
   import { ref } from 'vue';
   import axios from 'axios';
+
+  // import { readdir } from 'fs/promises';
+  // import path from 'path';
 
   const listItems = ref([]);
   const people = ref([]);
@@ -79,6 +136,35 @@ export default {
   }
 
   getData();  
+
+
+  // async function getAvailableAudioFiles() {
+  //   try {
+  //     const directoryPath = path.join(__dirname, '~/Dokumenty/muza/');
+  //     const files = await readdir(directoryPath);
+  //     availableAudioFiles.value = files.map(file => ({
+  //       id: file,
+  //       name: file
+  //     }));
+  //   } catch (error) {
+  //     console.error('Error reading audio files:', error);
+  //   }
+  // }
+
+
+  // Add this function to fetch available audio files
+  // async function getAvailableAudioFiles() {
+  //   try {
+  //     const response = await axios.get('https://stasieradio.pl/cgi-bin/phpAplikacja/audio/');
+  //     this.availableAudioFiles = response.data;
+  //   } catch (error) {
+  //     console.error('Error fetching available audio files:', error);
+  //   }
+    
+  // }
+
+  // getAvailableAudioFiles();
+
 </script>
 
 
@@ -125,5 +211,10 @@ export default {
     .fileInput{
       margin: 8px 0;
       width: 100%;
+    }
+
+    .dropDownMenu[multiple] {
+      height: auto;
+      min-height: 100px;
     }
 </style>
